@@ -25,6 +25,9 @@ public class SpringSecurityConfiguration {
   private void configureRestAuthorizations(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorizationRegistry) {
     authorizationRegistry
         .requestMatchers("/actuator/health").permitAll()
+        .requestMatchers("/api/v1/*").permitAll()
+        .requestMatchers("/*").permitAll()
+        .requestMatchers("/resolve/*").permitAll()
         .anyRequest().denyAll();
   }
 }

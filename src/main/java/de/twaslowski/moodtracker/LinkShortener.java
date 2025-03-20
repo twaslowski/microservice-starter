@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 
 @SpringBootApplication(exclude = {UserDetailsServiceAutoConfiguration.class})
-public class MicroserviceStarter {
+public class LinkShortener {
 
   public static void main(String[] args) {
-    SpringApplication.run(MicroserviceStarter.class, args);
+    SpringApplication.run(LinkShortener.class, args);
   }
 }

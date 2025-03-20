@@ -7,3 +7,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/link-shortener?currentSchema=link-shortener
     username: link-shortener
     password: password
+
+link-shortener:
+  base-url: localhost:${server.port}

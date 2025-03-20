@@ -1,4 +1,4 @@
-package de.twaslowski.moodtracker.exception;
+package de.twaslowski.moodtracker.domain.exception;
 
 public class NotAValidURLException extends IllegalArgumentException {
 

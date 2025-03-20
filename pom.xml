@@ -149,7 +149,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>de.twaslowski.moodtracker.MicroserviceStarter</mainClass>
+                    <mainClass>de.twaslowski.moodtracker.LinkShortener</mainClass>
                     <layout>JAR</layout>
                 </configuration>
                 <executions>

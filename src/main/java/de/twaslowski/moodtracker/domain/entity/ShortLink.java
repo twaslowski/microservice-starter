@@ -1,15 +1,19 @@
 package de.twaslowski.moodtracker.domain.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
@@ -27,8 +31,12 @@ public class ShortLink {
   private String originalUrl;
 
   @NotNull
-  private String urlStub;
+  private String shortenedUrl;
 
-  @NotNull
-  private String shortUrl;
+  @CreationTimestamp
+  @Column(updatable = false)
+  private ZonedDateTime createdAt;
+
+  @UpdateTimestamp
+  private ZonedDateTime updatedAt;
 }

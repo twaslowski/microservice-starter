@@ -1,14 +1,14 @@
 services:
   postgresql:
-    image: postgres:14.7
+    image: postgres:14.9
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: user
+      POSTGRES_USER: link-shortener
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mood-tracker
+      POSTGRES_DB: link-shortener
     healthcheck:
-      test: [ "CMD", "psql", "postgresql://user:password@localhost:5432/mood-tracker", "-c", "select 1;" ]
+      test: [ "CMD", "psql", "postgresql://link-shortener:password@localhost:5432/link-shortener", "-c", "select 1;" ]
       interval: 5s
       timeout: 5s
       retries: 3

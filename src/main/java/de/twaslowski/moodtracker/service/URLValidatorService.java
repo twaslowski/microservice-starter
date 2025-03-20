@@ -1,6 +1,6 @@
 package de.twaslowski.moodtracker.service;
 
-import de.twaslowski.moodtracker.exception.NotAValidURLException;
+import de.twaslowski.moodtracker.domain.exception.NotAValidURLException;
 import org.springframework.stereotype.Service;
 
 @Service

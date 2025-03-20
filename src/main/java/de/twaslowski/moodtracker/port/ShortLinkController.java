@@ -20,7 +20,7 @@ public class ShortLinkController {
 
   private final LinkShortenerService linkShortenerService;
 
-  @PostMapping("/shorten-link")
+  @PostMapping("/shortlink")
   public ResponseEntity<ShortLink> shortenLink(@Valid @RequestBody LinkShortenerRequestDTO request) {
     return ResponseEntity.ok(linkShortenerService.createShortLink(request.originalUrl()));
   }

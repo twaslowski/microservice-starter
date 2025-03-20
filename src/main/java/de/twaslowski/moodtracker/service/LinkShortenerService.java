@@ -2,10 +2,13 @@ package de.twaslowski.moodtracker.service;
 
 import de.twaslowski.moodtracker.domain.entity.ShortLink;
 import de.twaslowski.moodtracker.repository.ShortLinkRepository;
+import de.twaslowski.moodtracker.service.shortener.UrlShortener;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LinkShortenerService {
@@ -14,15 +17,21 @@ public class LinkShortenerService {
   private String baseUrl;
 
   private final ShortLinkRepository shortLinkRepository;
-  private final UrlStubProvider urlStubProvider;
+  private final UrlShortener urlShortener;
   private final URLValidatorService urlValidatorService;
 
   public ShortLink createShortLink(String url) {
     urlValidatorService.validate(url);
-    var urlStub = urlStubProvider.provideStub(url);
+    var urlStub = urlShortener.shorten(url);
+    var shortenedUrl = createShortUrl(urlStub);
+    log.info("Shortened {} to {}", url, shortenedUrl);
     return shortLinkRepository.save(ShortLink.builder()
-        .shortUrl(urlStub)
         .originalUrl(url)
+        .shortenedUrl(shortenedUrl)
         .build());
+  }
+
+  private String createShortUrl(String urlStub) {
+    return "%s/%s".formatted(baseUrl, urlStub);
   }
 }
