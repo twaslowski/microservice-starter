@@ -17,21 +17,23 @@ public class LinkShortenerService {
   private String baseUrl;
 
   private final ShortLinkRepository shortLinkRepository;
-  private final UrlShortener urlShortener;
+  private final UrlShortener urlTokenGenerator;
   private final URLValidatorService urlValidatorService;
 
   public ShortLink createShortLink(String url) {
     urlValidatorService.validate(url);
-    var urlStub = urlShortener.shorten(url);
-    var shortenedUrl = createShortUrl(urlStub);
+    var token = urlTokenGenerator.createToken(url);
+    var shortenedUrl = createShortUrl(token);
     log.info("Shortened {} to {}", url, shortenedUrl);
+
     return shortLinkRepository.save(ShortLink.builder()
         .originalUrl(url)
         .shortenedUrl(shortenedUrl)
+        .token(token)
         .build());
   }
 
-  private String createShortUrl(String urlStub) {
-    return "%s/%s".formatted(baseUrl, urlStub);
+  private String createShortUrl(String token) {
+    return "%s/%s".formatted(baseUrl, token);
   }
 }

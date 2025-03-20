@@ -31,6 +31,9 @@ public class ShortLink {
   private String originalUrl;
 
   @NotNull
+  private String token;
+
+  @NotNull
   private String shortenedUrl;
 
   @CreationTimestamp

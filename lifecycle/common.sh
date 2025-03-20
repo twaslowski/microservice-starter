@@ -12,37 +12,6 @@ function package() {
   ./mvnw package -DskipTests
 }
 
-function build() {
-  TAG=$1
-
-  if [ -z "$TAG" ]; then
-    echo "TAG is required"
-    exit 1
-  fi
-
-  ROOT=$(git rev-parse --show-toplevel)
-  package
-  docker build -t "open-mood-tracker:$TAG" "$ROOT"
-}
-
-function deploy() {
-  TAG="sha-$(git rev-parse --short HEAD)"
-
-  helm upgrade --install \
-    --values ./charts/values/postgres-values.yaml \
-    --namespace mood-tracker --create-namespace \
-    --wait --timeout 180s \
-    postgres oci://registry-1.docker.io/bitnamicharts/postgresql
-
-  helm upgrade --install \
-    --set image.tag="$TAG" \
-    --set telegramToken="$TELEGRAM_TOKEN" \
-    --values ./charts/values/application-values.yaml \
-    --namespace mood-tracker --create-namespace \
-    --wait --timeout 180s \
-    open-mood-tracker ./charts/open-mood-tracker
-}
-
 function unit_test() {
   ./mvnw test
 }
@@ -52,6 +21,5 @@ function integration_test() {
 }
 
 function run() {
-  start_environment
   SPRING_PROFILES_ACTIVE=local ./mvnw spring-boot:run
 }

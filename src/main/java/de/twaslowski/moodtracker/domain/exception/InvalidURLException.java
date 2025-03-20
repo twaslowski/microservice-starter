@@ -1,10 +1,10 @@
 package de.twaslowski.moodtracker.domain.exception;
 
-public class NotAValidURLException extends IllegalArgumentException {
+public class InvalidURLException extends IllegalArgumentException {
 
   private static final String message = "%s is not a valid url";
 
-  public NotAValidURLException(String url) {
+  public InvalidURLException(String url) {
     super(message.formatted(url));
   }
 }

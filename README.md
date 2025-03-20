@@ -19,6 +19,7 @@ This is my personal starter kit when I create new microservices. It includes:
 **Operational Capabilities**
 
 - A Helm chart for deploying the core application
+- Service-level Prometheus scraping annotations
 - GitHub Actions workflows for validating PRs and deploying
 - A local test setup
 

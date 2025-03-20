@@ -1,20 +1,20 @@
 package de.twaslowski.moodtracker.service;
 
 import de.twaslowski.moodtracker.domain.entity.ShortLink;
-import de.twaslowski.moodtracker.domain.exception.StubNotFoundException;
+import de.twaslowski.moodtracker.domain.exception.TokenNotFoundException;
 import de.twaslowski.moodtracker.repository.ShortLinkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LinkResolutionService {
+public class TokenResolutionService {
 
   private final ShortLinkRepository shortLinkRepository;
 
-  public String resolveStub(String stub) {
-    return shortLinkRepository.findById(stub)
+  public String resolveToken(String token) {
+    return shortLinkRepository.findShortLinkByToken(token)
         .map(ShortLink::getOriginalUrl)
-        .orElseThrow(StubNotFoundException::new);
+        .orElseThrow(TokenNotFoundException::new);
   }
 }

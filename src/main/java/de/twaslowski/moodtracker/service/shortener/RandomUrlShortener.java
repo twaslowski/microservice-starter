@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class RandomUrlShortener implements UrlShortener {
 
   @Override
-  public String shorten(String originalUrl) {
+  public String createToken(String originalUrl) {
     return UUID.randomUUID().toString();
   }
 }
