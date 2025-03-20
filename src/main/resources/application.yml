@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  ssl:
+    enabled: false
+
+spring:
+  application:
+    name: link-shortener
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: "\"link-shortener\""
+    open-in-view: false
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      max-lifetime: 1260000
+  flyway:
+    schemas: link-shortener
+
+link-shortener:
+  base-url: ${BASE_URL}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus

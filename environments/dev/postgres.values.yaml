@@ -1,0 +1,17 @@
+architecture: standalone
+
+auth:
+  username: starter
+  database: starter
+nameOverride: "postgres"
+
+service:
+  port: 5432
+
+primary:
+  resourcesPreset: nano
+
+persistence:
+  primary:
+    size: 2Gi
+

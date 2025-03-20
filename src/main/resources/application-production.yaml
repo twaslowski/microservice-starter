@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres.shortener.svc.cluster.local:5432/link-shortener?currentSchema=link-shortener
+    username: link-shortener
+    password: ${DATASOURCE_PASSWORD}
