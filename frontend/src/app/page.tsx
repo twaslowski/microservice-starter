@@ -1,6 +1,7 @@
 'use client'
 
 import React, {useState} from 'react';
+import {Shortlink} from "@/types/shortlink";
 
 const LinkShortener = () => {
   const [url, setUrl] = useState('');
@@ -22,19 +23,20 @@ const LinkShortener = () => {
 
     try {
       // This would be replaced with your actual API call
-      const response = await fetch('/api/shorten', {
+      const response = await fetch('/api/v1/shortlink', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({originalUrl: url})
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json();
         throw new Error(data.message || 'Something went wrong');
       }
 
-      setShortUrl(data.shortUrl);
+      const data = await response.json() as Shortlink;
+
+      setShortUrl(data.shortenedUrl);
     } catch (err) {
       if (err instanceof Error)
         setError(err.message || 'Failed to shorten URL');

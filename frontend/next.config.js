@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
-
-import {serverUrl} from "./src/constant/env.ts";
-
 const nextConfig = {
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: `${serverUrl}/api/:path*`,
+        destination: `${process.env.BACKEND_HOST}/api/:path*`,
       },
     ];
   },
@@ -48,6 +45,9 @@ const nextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
 
     return config;
+  },
+  env: {
+    BACKEND_HOST: process.env.BACKEND_HOST,
   },
 };
 
