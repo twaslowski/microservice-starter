@@ -1,4 +1,4 @@
-name: Build
+name: Build and deploy
 on:
   push:
     branches:
@@ -59,7 +59,7 @@ jobs:
         id: docker-metadata
         uses: docker/metadata-action@v5
         with:
-          images: tobiaswaslowski/open-mood-tracker
+          images: tobiaswaslowski/link-shortener
           flavor: |
             latest=true
           tags: |
@@ -77,15 +77,15 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
-    runs-on: self-hosted
-    needs: build_docker_image
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: deploy
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-        run: |
-          ./scripts/deploy.sh
+#  deploy:
+#    runs-on: self-hosted
+#    needs: build_docker_image
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: deploy
+#        env:
+#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#        run: |
+#          ./scripts/deploy.sh

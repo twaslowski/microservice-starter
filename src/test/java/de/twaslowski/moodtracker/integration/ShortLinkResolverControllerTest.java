@@ -24,6 +24,6 @@ public class ShortLinkResolverControllerTest extends IntegrationTestBase {
 
     mockMvc.perform(MockMvcRequestBuilders.get(format("/%s", shortLink.getToken()))
             .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().is(302));
+        .andExpect(status().is(303));
   }
 }
