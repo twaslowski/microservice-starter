@@ -7,6 +7,7 @@ import com.twaslowski.linkshortener.domain.exception.UserExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,5 +29,11 @@ public class ExceptionHandlingAdvice {
   @ExceptionHandler({TokenExistsException.class, UserExistsException.class})
   public final ResponseEntity<ErrorResponse> handleExistingToken(Exception ex) {
     return new ResponseEntity<>(HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(BadCredentialsException.class)
+  public final ResponseEntity<ErrorResponse> handleBadCredentials(Exception ex) {
+    // To ensure 401s are returned when credentials are mismatched instead of the default 403
+    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
   }
 }

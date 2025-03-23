@@ -43,4 +43,57 @@ public class UserControllerTest extends IntegrationTestBase {
         .andExpect(status().isConflict());
   }
 
+  @Test
+  @SneakyThrows
+  void shouldLoginUserSuccessfullyWithCorrectCredentials() {
+    var loginRequest = UserDTO.builder()
+        .email("contact@twaslowski.com")
+        .password("a very secure password")
+        .build();
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/register")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(loginRequest)))
+        .andExpect(status().isOk());
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(loginRequest)))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  @SneakyThrows
+  void shouldReturnUnauthorizedOnInvalidCredentials() {
+    var loginRequest = UserDTO.builder()
+        .email("contact@twaslowski.com")
+        .password("a very secure password")
+        .build();
+
+    var incorrectPassword = UserDTO.builder()
+        .email("contact@twaslowski.com")
+        .password("a very wrong password")
+        .build();
+
+    var incorrectUsername = UserDTO.builder()
+        .email("info@twaslowski.com")
+        .password("a very secure password")
+        .build();
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/register")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(loginRequest)))
+        .andExpect(status().isOk());
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(incorrectPassword)))
+        .andExpect(status().isUnauthorized());
+
+    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(incorrectUsername)))
+        .andExpect(status().isUnauthorized());
+  }
+
 }

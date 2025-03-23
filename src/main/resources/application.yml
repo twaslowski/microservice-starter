@@ -31,6 +31,9 @@ link-shortener:
       secret-key: ${HASHING_SECRET}
     encryption:
       secret-key: ${ENCRYPTION_SECRET}
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration-time: 3600000
 
 management:
   endpoints:

@@ -11,4 +11,6 @@ link-shortener:
       secret-key: some-secret-key
     encryption:
       secret-key: 9ab5a279e4e15f5f11b71abe614a0417
+    jwt:
+      secret-key: a-string-secret-at-least-256-bits-long
 
