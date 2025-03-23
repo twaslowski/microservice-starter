@@ -4,10 +4,10 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RandomUrlShortener implements UrlShortener {
+public class RandomTokenGenerator implements TokenGenerator {
 
   @Override
-  public String createToken(String originalUrl) {
+  public String createToken(String preferredToken) {
     return UUID.randomUUID().toString();
   }
 }

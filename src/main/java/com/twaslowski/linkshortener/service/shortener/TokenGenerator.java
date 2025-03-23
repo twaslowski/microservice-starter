@@ -1,6 +1,6 @@
 package com.twaslowski.linkshortener.service.shortener;
 
-public interface UrlShortener {
+public interface TokenGenerator {
 
   String createToken(String originalUrl);
 }

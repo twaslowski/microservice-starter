@@ -9,4 +9,4 @@ spring:
     password: password
 
 link-shortener:
-  base-url: localhost:${server.port}
+  base-url: http://localhost:${server.port}

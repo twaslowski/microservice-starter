@@ -1,12 +1,12 @@
 package com.twaslowski.linkshortener.domain.dto;
 
+import com.twaslowski.linkshortener.domain.value.ShorteningStrategy;
 import lombok.Builder;
-import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy;
 
 @Builder
 public record LinkShortenerRequestDTO(
     String originalUrl,
-    Strategy shorteningStrategy,
+    ShorteningStrategy shorteningStrategy,
     String preferredToken
 ) {
 

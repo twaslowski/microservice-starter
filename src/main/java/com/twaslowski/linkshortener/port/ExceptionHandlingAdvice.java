@@ -1,6 +1,7 @@
 package com.twaslowski.linkshortener.port;
 
 import com.twaslowski.linkshortener.domain.exception.InvalidURLException;
+import com.twaslowski.linkshortener.domain.exception.TokenExistsException;
 import com.twaslowski.linkshortener.domain.exception.TokenNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,10 @@ public class ExceptionHandlingAdvice {
   @ExceptionHandler(InvalidURLException.class)
   public final ResponseEntity<ErrorResponse> handleInvalidUrl(InvalidURLException ex) {
     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(TokenExistsException.class)
+  public final ResponseEntity<ErrorResponse> handleExistingToken(TokenExistsException ex) {
+    return new ResponseEntity<>(HttpStatus.CONFLICT);
   }
 }
