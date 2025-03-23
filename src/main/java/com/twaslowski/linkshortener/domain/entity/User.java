@@ -1,6 +1,8 @@
 package com.twaslowski.linkshortener.domain.entity;
 
+import com.twaslowski.linkshortener.repository.StringEncryptor;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +30,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
 
   @NotNull
+  @Convert(converter = StringEncryptor.class)
   private String email;
 
   @NotNull

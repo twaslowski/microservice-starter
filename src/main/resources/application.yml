@@ -26,6 +26,11 @@ spring:
 
 link-shortener:
   base-url: ${BASE_URL}
+  security:
+    hashing:
+      secret-key: ${HASHING_SECRET}
+    encryption:
+      secret-key: ${ENCRYPTION_SECRET}
 
 management:
   endpoints:

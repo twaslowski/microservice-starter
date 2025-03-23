@@ -10,3 +10,8 @@ spring:
 
 link-shortener:
   base-url: http://localhost:${server.port}
+  security:
+    hashing:
+      secret-key: some-secret-key
+    encryption:
+      secret-key: 9ab5a279e4e15f5f11b71abe614a0417
