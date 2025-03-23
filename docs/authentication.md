@@ -6,6 +6,17 @@ The `User` entity is designed for maximum security. The password is hashed and s
 `BCryptPasswordEncoder` and the email is hashed and encrypted using Spring's `TextEncryptor`,
 making it GDPR-compliant.
 
+It has the following fields:
+
+- `id`: a UUID is used instead of a sequential id, as UUIDs are harder to guess for attackers.
+- `email`: The email of the user, encrypted with AES-256
+- `email_hash`: The hash of the plaintext email for data retrieval, [find more details in this section](#email-hashing)
+- `password`: The password hash, hashed by Spring's [BCryptPasswordEncoder](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html)
+- `created_at`: Timestamp with timezone
+- `updated_at`: Timestamp with timezone
+
+**Source code [here](https://github.com/twaslowski/microservice-starter/blob/main/src/main/java/com/twaslowski/linkshortener/domain/entity/User.java)**.
+
 ## Encryption
 
 Encryption of user's emails is performed using AES-256 and a different, cryptographically random
@@ -13,7 +24,11 @@ Encryption of user's emails is performed using AES-256 and a different, cryptogr
 [TextEncryptor](https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/html/crypto.html#spring-security-crypto-encryption-text).
 
 An `email` column in the database consists of the encrypted email as well as the random salt,
-which is appended to it at the end.
+which is appended to it at the end. The encryption only takes place at-rest; the data is assumed
+to be encrypted by TLS in-transit, and so a JPA Converter is used to encrypt it before being saved
+to the database.
+
+**Encryption source code [here](https://github.com/twaslowski/microservice-starter/blob/main/src/main/java/com/twaslowski/linkshortener/repository/StringEncryptor.java)**.
 
 ### Email hashing
 
@@ -79,3 +94,5 @@ public boolean userDetailsCorrect(UserDTO userDTO) {
   return user.getPassword().equals(hashedPassword);
 }
 ```
+
+**Source code [here](https://github.com/twaslowski/microservice-starter/blob/main/src/main/java/com/twaslowski/linkshortener/service/user/EmailHashingService.java)**.

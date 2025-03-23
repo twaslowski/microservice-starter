@@ -12,6 +12,7 @@ public class EmailHashingService {
 
   /**
    * Provides computationally quick hashes for email lookups.
+   * Todo: Should use a salt as well.
    */
 
   private static final String HMAC_ALGORITHM = "HmacSHA256";
