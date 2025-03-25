@@ -1,8 +1,7 @@
 package com.twaslowski.linkshortener.domain.entity;
 
-import com.twaslowski.linkshortener.repository.StringEncryptor;
+import com.twaslowski.linkshortener.config.encryption.Encrypted;
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +33,7 @@ public class User implements UserDetails {
   private String id;
 
   @NotNull
-  @Convert(converter = StringEncryptor.class)
+  @Encrypted
   private String email;
 
   @NotNull
