@@ -1,5 +1,6 @@
 package com.twaslowski.linkshortener.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.twaslowski.linkshortener.config.encryption.Encrypted;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,9 +38,11 @@ public class User implements UserDetails {
   private String email;
 
   @NotNull
+  @JsonIgnore
   private String emailHash;
 
   @NotNull
+  @JsonIgnore
   private String password;
 
   @CreationTimestamp

@@ -4,6 +4,8 @@ import * as React from 'react';
 import '@/styles/globals.css';
 
 import { siteConfig } from '@/constant/config';
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -49,8 +51,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
-      <body>{children}</body>
-    </html>
+      <html>
+      <body>
+        <Header/>
+        <main>
+          {children}
+        </main>
+        <Footer/>
+      </body>
+      </html>
   );
 }

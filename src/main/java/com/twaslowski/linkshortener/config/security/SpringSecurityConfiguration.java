@@ -1,16 +1,12 @@
-package com.twaslowski.linkshortener.config;
+package com.twaslowski.linkshortener.config.security;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.NEVER;
 
-import com.twaslowski.linkshortener.config.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -20,14 +16,12 @@ public class SpringSecurityConfiguration {
   @Bean
   public SecurityFilterChain configureWebSecurity(
       JwtAuthenticationFilter jwtAuthenticationFilter,
-      AuthenticationProvider authenticationProvider,
       HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(this::configureRestAuthorizations)
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .sessionManagement(session -> session.sessionCreationPolicy(NEVER))
-        .authenticationProvider(authenticationProvider)
         .build();
   }
 
@@ -38,10 +32,5 @@ public class SpringSecurityConfiguration {
         .requestMatchers("/api/v1/user/*").permitAll()
         .requestMatchers("/actuator/health").permitAll()
         .anyRequest().denyAll();
-  }
-
-  @Bean
-  public PasswordEncoder encoder() {
-    return new BCryptPasswordEncoder();
   }
 }

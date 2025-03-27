@@ -52,8 +52,7 @@ const LinkShortener = () => {
   };
 
   return (
-      <div
-          className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 flex flex-col items-center justify-center p-4">
+      <div className="bg-gradient-to-br from-indigo-50 to-blue-100 flex flex-col items-center justify-center p-4 min-h-screen">
         <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 space-y-6">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-800">Link Shortener</h1>
